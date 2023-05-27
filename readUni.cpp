@@ -43,6 +43,9 @@ void readUni(const std::string &filename, University universities[], int &numUni
     std::string line;
     std::getline(inputFile, line); // Skip the header line
 
+    // while retrieving info from uni.csv, it will check for invalid data, for score-related it will convert invalid data to -1.0
+    // for rank-related, convert to -1
+    // if rank-related is 501+ OR 601+, it will set it as 501 and 601 respectively in array, but for display purpose, it will print it out as 501+ and 601+ respectively
     numUniversities = 0;
     while (std::getline(inputFile, line) && numUniversities < ARRAY_SIZE)
     {
@@ -269,6 +272,9 @@ int main()
 
     readUni("uni.csv", universities, numUniversities);
 
+    // if it is -1 OR -1.0, it will print n/a
+    // if it is 501 in array, it will print 501+
+    // if it is 601 in array, it will print 601+
     for (int i = 0; i < numUniversities; i++)
     {
         University &uni = universities[i];
