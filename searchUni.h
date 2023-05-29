@@ -5,7 +5,7 @@
 #include <iomanip> // for std::setprecision
 // #include <cmath>
 
-#include "readUni.h"
+#include "read.h"
 #include "exit.h"
 
 
@@ -316,6 +316,85 @@ void quickSort(University universities[], int low, int high, const std::string &
             quickSort(universities, i, high, searchCriteria);
         }
     }
+}
+
+
+// Partition function for QuickSort
+int partition(University universities[], int low, int high)
+{
+    std::string pivot = universities[high].name;
+    int i = low - 1;
+
+    for (int j = low; j <= high - 1; j++)
+    {
+        if (universities[j].name <= pivot)
+        {
+            i++;
+            swap(universities[i], universities[j]);
+        }
+    }
+    swap(universities[i + 1], universities[high]);
+    return (i + 1);
+}
+
+// QuickSort algorithm
+void quickSort1(University universities[], int low, int high)
+{
+    if (low < high)
+    {
+        int pivotIndex = partition(universities, low, high);
+
+        quickSort1(universities, low, pivotIndex - 1);
+        quickSort1(universities, pivotIndex + 1, high);
+    }
+}
+
+void displaySortedUni()
+{
+    University universities[ARRAY_SIZE];
+    int numUniversities = 0;
+
+    readUni("uni.csv", universities, numUniversities);
+
+    // Sort the universities array based on name in ascending order
+    quickSort1(universities, 0, numUniversities - 1);
+
+    const int pageSize = 20;
+    int currentPage = 0;
+    int totalPage = (numUniversities + pageSize - 1) / pageSize;
+
+    while (currentPage < totalPage) {
+        int startIndex = currentPage * pageSize;
+        int endIndex = std::min(startIndex + pageSize, numUniversities);
+
+        for (int i = startIndex; i < endIndex; i++) {
+            University& uni = universities[i];
+            std::cout << "University #" << i + 1 << std::endl;
+            std::cout << "Name: " << uni.name << std::endl;
+        }
+
+        currentPage++;
+
+        if (currentPage < totalPage) {
+            std::cout << "Press Enter to continue or enter 'q' to quit: ";
+            std::string input;
+            std::getline(std::cin, input);
+
+            if (input == "q") {
+                break;
+            }
+        }
+    }
+    
+    // // Display the sorted universities
+    // for (int i = 0; i < numUniversities; i++)
+    // {
+    //     University& uni = universities[i];
+    //     std::cout << "University #" << i + 1 << std::endl;
+    //     std::cout << "Name: " << uni.name << std::endl;
+    //     // Print other fields as needed
+    //     std::cout << std::endl;
+    // }
 }
 
 bool binarySearchUni(const University universities[], int numUniversities, int targetRank, const std::string &targetName, double targetScore, const std::string &searchCriteria)
