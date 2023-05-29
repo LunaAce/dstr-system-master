@@ -22,7 +22,6 @@ void giveFeedback()
 {
     string line;
     string feedback;
-
     ofstream output_file("feedback.csv", ios::out | ios::app);
 
     // Read the current user's username from the CSV file
@@ -52,7 +51,7 @@ void giveFeedback()
     cin >> feedback;
     output_file << currentuser << "," << currentuni << "," << feedback << ","
                 << "\n";
-    cout << "Added to Favourite! " << endl;
+    cout << "Added to Feedback! " << endl;
 }
 
 void readfeedback()
@@ -96,8 +95,8 @@ void readfeedback()
         if (username == currentuser)
         {
             cout << "Feedback for University " << university << ":" << endl;
-            cout << "Your Feedback " << feedback_text << endl;
-            cout << "Admin Reply" << endl;
+            cout << "Your Feedback: " << feedback_text << endl;
+            cout << "Admin Reply  : " << endl;
             feedback_found = true;
         }
     }
@@ -238,7 +237,7 @@ void uni_menu()
         switch (choice)
         {
         case 0:
-            // exitProgram();
+            
             break;
 
         case 1:
