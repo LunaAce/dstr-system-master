@@ -2,8 +2,10 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <iomanip> // for std::setprecision
-
+#include <map>
+#include <cctype>
+#include <vector>
+#include <iomanip> 
 
 const int ARRAY_SIZE = 1422;
 
@@ -62,29 +64,6 @@ void readUni(const std::string &filename, University universities[], int &numUni
         {
             universities[numUniversities].rank = -1;
             data = "n/a";
-        }
-
-        // Check if the line starts with an integer (rank value)
-        bool startsWithRank = false;
-        try
-        {
-            std::stoi(line);
-            startsWithRank = true;
-        }
-        catch (const std::exception &)
-        {
-        }
-
-        // Read the name field
-        if (startsWithRank)
-        {
-            // If the line starts with a rank, consider the name field as the remaining part of the line
-            universities[numUniversities].name = line.substr(data.size() + 1);
-        }
-        else
-        {
-            // Otherwise, read the name field as usual
-            std::getline(iss, universities[numUniversities].name, ',');
         }
 
         std::getline(iss, universities[numUniversities].name, ',');
@@ -282,42 +261,24 @@ void readUni(const std::string &filename, University universities[], int &numUni
     inputFile.close();
 }
 
-void displayUni()
+std::string formatDouble(double value)
+
 {
+    std::ostringstream oss;
+    oss << std::fixed << std::setprecision(3) << value;
+    return oss.str();
+}
 
-    University universities[ARRAY_SIZE];
-    int numUniversities = 0;
-
-    readUni("uni.csv", universities, numUniversities);
-
-    // if it is -1 OR -1.0, it will print n/a
-    // if it is 501 in array, it will print 501+
-    // if it is 601 in array, it will print 601+
+int findUniversity(const University universities[], int numUniversities, int value)
+{
     for (int i = 0; i < numUniversities; i++)
     {
-        University &uni = universities[i];
-        std::cout << "University #" << i + 1 << std::endl;
-        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-        std::cout << "Name: " << uni.name << std::endl;
-        std::cout << "Location Code: " << uni.locationCode << std::endl;
-        std::cout << "Location: " << uni.location << std::endl;
-        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-        std::cout << std::endl;
+        if (universities[i].rank == value)
+        {
+            return i;
+        }
     }
+
+    return -1;
 }
+

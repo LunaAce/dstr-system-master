@@ -663,7 +663,6 @@ void displayTarget()
     University universities[ARRAY_SIZE];
     int numUniversities = 0;
 
-    ofstream output_file("current_uni.csv");
     readUni("uni.csv", universities, numUniversities);
     int targetRank;
     double targetScore;
@@ -743,12 +742,7 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
-                        uni_menu();
                         break;
-
-                        
                     }
                 }
             }
@@ -797,8 +791,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -848,8 +840,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -900,8 +890,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -952,8 +940,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1003,8 +989,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1054,8 +1038,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1105,8 +1087,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1156,8 +1136,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1207,8 +1185,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1258,8 +1234,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1309,8 +1283,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1360,8 +1332,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1410,8 +1380,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1461,8 +1429,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1512,8 +1478,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1563,8 +1527,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1614,8 +1576,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1665,8 +1625,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1716,8 +1674,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1767,8 +1723,6 @@ void displayTarget()
                         std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
                         std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
                         std::cout << std::endl;
-                        output_file << uni.name;
-                        output_file.close();
                         break;
                     }
                 }
@@ -1787,7 +1741,5 @@ void displayTarget()
         }
 
         std::cout << std::endl;
-        
     }
 }
-

@@ -1,2 +1,3 @@
-admin,password123
-customer,password123
+admin,password123,1
+customer,password123,0
+raven,raven,0
