@@ -12,7 +12,6 @@ using namespace std;
 #include "feedback.h"
 #include "searchUni.h"
 
-
 void admin_signin();
 void customer_signin();
 void customer_signup();
@@ -228,7 +227,7 @@ void admin_mainmenu()
         switch (choice)
         {
         case 0:
-            // exitProgram();
+            exitProgram();
             break;
 
         case 1:
@@ -241,6 +240,10 @@ void admin_mainmenu()
             break;
 
         case 4:
+            break;
+
+        case 5:
+            replyFeedback();
             break;
 
         default:
@@ -333,7 +336,6 @@ void guest_mainmenu()
         }
     }
 }
-
 
 int main()
 {

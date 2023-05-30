@@ -660,10 +660,11 @@ bool binarySearchUni(const University universities[], int numUniversities, int t
 
 void displayTarget()
 {
+    ofstream output_file("current_uni.csv");
     University universities[ARRAY_SIZE];
     int numUniversities = 0;
 
-    ofstream output_file("current_uni.csv");
+    
     readUni("uni.csv", universities, numUniversities);
     int targetRank;
     double targetScore;
@@ -799,6 +800,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -850,6 +852,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -902,6 +905,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -954,6 +958,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1005,6 +1010,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1056,6 +1062,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1107,6 +1114,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1158,6 +1166,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1209,6 +1218,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1260,6 +1270,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1311,6 +1322,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1362,6 +1374,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1412,6 +1425,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1463,6 +1477,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1514,6 +1529,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1565,6 +1581,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1616,6 +1633,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1667,6 +1685,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1718,6 +1737,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
@@ -1769,6 +1789,7 @@ void displayTarget()
                         std::cout << std::endl;
                         output_file << uni.name;
                         output_file.close();
+                        uni_menu();
                         break;
                     }
                 }
