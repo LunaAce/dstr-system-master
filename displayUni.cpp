@@ -1,4 +1,4 @@
-#include "search.h"
+#include "searchUni.h"
 void menu()
 {
     int choice;
@@ -6,9 +6,8 @@ void menu()
     {
         std::cout << "Main Menu" << std::endl;
         std::cout << "1. Display All Universities Information." << std::endl;
-        std::cout << "2. Quick Sort" << std::endl;  
-        std::cout << "3. Binary Search" << std::endl;
-        std::cout << "4. Exit" << std::endl;
+        std::cout << "2. Binary Search" << std::endl;
+        std::cout << "3. Exit" << std::endl;
         std::cout << "Enter your choice: ";
         std::cin >> choice;
 
@@ -18,12 +17,9 @@ void menu()
             displayUni();
             break;
         case 2:
-            displaySortedUni();
-            break;
-        case 3:
             displayTarget();
             break;
-        case 4:
+        case 3:
             exitProgram();
 
         case 22:

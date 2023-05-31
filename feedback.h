@@ -6,12 +6,11 @@
 #include <sstream>
 #include <iomanip>
 
-// #include "searchUni.h"
-
 void replyFeedback()
 {
     // Read feedback for all users from the CSV file
     string feedback_file_name = "feedback.csv";
+    string feedback_lines;
     ifstream feedback_file(feedback_file_name);
 
     if (!feedback_file.is_open())
@@ -20,13 +19,9 @@ void replyFeedback()
         return;
     }
 
-    string line;
-    vector<string> feedback_lines;
-
-    while (getline(feedback_file, line))
-    {
-        feedback_lines.push_back(line);
-    }
+    stringstream buffer;
+    buffer << feedback_file.rdbuf();
+    feedback_lines = buffer.str();
 
     feedback_file.close();
 
@@ -37,11 +32,13 @@ void replyFeedback()
     }
 
     // Display a list of feedbacks
-    cout << "Feedbacks:" << endl;
+    stringstream ss(feedback_lines);
+    string line;
+    int line_number = 1;
 
-    for (int i = 0; i < feedback_lines.size(); i++)
+    while (getline(ss, line))
     {
-        istringstream iss(feedback_lines[i]);
+        istringstream iss(line);
         string username, university, feedback_text, feedback_reply, feedback_time;
         getline(iss, username, ',');
         getline(iss, university, ',');
@@ -49,42 +46,58 @@ void replyFeedback()
         getline(iss, feedback_reply, ',');
         getline(iss, feedback_time, '\n');
 
-        cout << i + 1 << "." << endl;
-        cout << "   Feedback for University " << university << " by " << username << endl;
+        cout << line_number << "." << endl;
+        cout << "   Feedback for University " << university << endl;
+        cout << "   by      : " << username << endl;
         cout << "   Feedback: " << feedback_text << endl;
         cout << "   Reply   : " << feedback_reply << endl;
         cout << "   Time    : " << feedback_time << endl;
+
+        line_number++;
     }
 
     // Prompt the admin to select a feedback to reply to
     int selection = 0;
 
-    while (selection < 1 || selection > feedback_lines.size())
+    while (selection < 1 || selection > line_number - 1)
     {
-        cout << "Select a feedback to reply to (1-" << feedback_lines.size() << "): ";
+        cout << "Select a feedback to reply to (1-" << line_number - 1 << "): ";
         cin >> selection;
     }
 
     // Modify the selected feedback
-    istringstream iss(feedback_lines[selection - 1]);
-    string username, university, feedback_text, feedback_reply, feedback_time;
-    getline(iss, username, ',');
-    getline(iss, university, ',');
-    getline(iss, feedback_text, ',');
-    getline(iss, feedback_reply, ',');
-    getline(iss, feedback_time, '\n');
+    stringstream ss2(feedback_lines);
+    string updated_feedback_lines;
+    line_number = 1;
 
-    cout << "Feedback for University " << university << " by " << username << ":" << endl;
-    cout << "Feedback: " << feedback_text << endl;
-    cout << "Reply   : " << feedback_reply << endl;
+    while (getline(ss2, line))
+    {
+        if (line_number == selection)
+        {
+            istringstream iss(line);
+            string username, university, feedback_text, feedback_reply, feedback_time;
+            getline(iss, username, ',');
+            getline(iss, university, ',');
+            getline(iss, feedback_text, ',');
+            getline(iss, feedback_reply, ',');
+            getline(iss, feedback_time, '\n');
 
-    string new_reply;
-    cout << "Enter your reply: ";
-    cin.ignore();
-    getline(cin, new_reply);
-    feedback_reply = new_reply;
+            cout << "Feedback for University " << university << " by " << username << ":" << endl;
+            cout << "Feedback: " << feedback_text << endl;
+            cout << "Reply   : " << feedback_reply << endl;
 
-    feedback_lines[selection - 1] = username + "," + university + "," + feedback_text + "," + feedback_reply + "," + feedback_time;
+            string new_reply;
+            cout << "Enter your reply: ";
+            cin.ignore();
+            getline(cin, new_reply);
+            feedback_reply = new_reply;
+
+            line = username + "," + university + "," + feedback_text + "," + feedback_reply + "," + feedback_time;
+        }
+
+        updated_feedback_lines += line + "\n";
+        line_number++;
+    }
 
     // Write the modified contents back to the file
     ofstream feedback_file_out(feedback_file_name);
@@ -95,10 +108,7 @@ void replyFeedback()
         return;
     }
 
-    for (const auto &line : feedback_lines)
-    {
-        feedback_file_out << line << endl;
-    }
+    feedback_file_out << updated_feedback_lines;
 
     feedback_file_out.close();
 }
@@ -135,9 +145,9 @@ void giveFeedback()
     tm *ltm = localtime(&now);
 
     stringstream time_ss;
-    time_ss << std::setw(4) << 1900 + ltm->tm_year << "-"
-            << std::setfill('0') << std::setw(2) << 1 + ltm->tm_mon << "-"
-            << std::setw(2) << ltm->tm_mday;
+    time_ss << setw(4) << 1900 + ltm->tm_year << "-"
+            << setfill('0') << setw(2) << 1 + ltm->tm_mon << "-"
+            << setw(2) << ltm->tm_mday;
 
     string time_str = time_ss.str();
 
@@ -197,7 +207,7 @@ void readfeedback()
             cout << "Feedback for University " << university << ":" << endl;
             cout << "Date of Feedback " << feedback_time << ":" << endl;
             cout << "Your Feedback: " << feedback_text << endl;
-            cout << "Admin Reply  : " << endl;
+            cout << "Admin Reply  : " << feedback_reply<< endl;
             cout << endl;
             feedback_found = true;
         }
@@ -340,10 +350,8 @@ void uni_menu()
 
         switch (choice)
         {
-        case 0:
-            std::cout << "Exiting program." << std::endl;
-            std::exit(0);
-            break;
+        case 0: 
+            return;
 
         case 1:
             savefavourite();

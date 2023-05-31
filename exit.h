@@ -3,6 +3,6 @@
 
 void exitProgram()
 {
-    std::cout << "Exiting program." << std::endl;
-    std::exit(0);
+    cout << "Exiting program." << endl;
+    exit(0);
 }

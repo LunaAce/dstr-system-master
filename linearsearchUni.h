@@ -2,21 +2,17 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <iomanip> 
-
-#include "readUni.h"
-#include "exit.h"
-
+#include <iomanip>
 
 // Swap function for universities
-void swap(University &a, University &b)
+void swap2(University &a, University &b)
 {
     University temp = a;
     a = b;
     b = temp;
 }
 
-void quickSort(University universities[], int low, int high, const std::string &searchCriteria)
+void quickSort2(University universities[], int low, int high, const string &searchCriteria)
 {
     if (low < high)
     {
@@ -299,7 +295,7 @@ void quickSort(University universities[], int low, int high, const std::string &
 
             if (i <= j)
             {
-                swap(universities[i], universities[j]);
+                swap2(universities[i], universities[j]);
                 i++;
                 j--;
             }
@@ -307,358 +303,185 @@ void quickSort(University universities[], int low, int high, const std::string &
 
         if (low < j)
         {
-            quickSort(universities, low, j, searchCriteria);
+            // quickSort(universities, low, j, searchCriteria);
         }
 
         if (i < high)
         {
-            quickSort(universities, i, high, searchCriteria);
+            // quickSort(universities, i, high, searchCriteria);
         }
     }
 }
 
-bool binarySearchUni(const University universities[], int numUniversities, int targetRank, const std::string &targetName, double targetScore, const std::string &searchCriteria)
+bool linearSearchUni(const University universities[], int numUniversities, int targetRank, const string &targetName, double targetScore, const string &searchCriteria)
 {
 
-    int low = 0;
-    int high = numUniversities - 1;
-
-    while (low <= high)
+    for (int i = 0; i < numUniversities; i++)
     {
-        int mid = low + (high - low) / 2;
-
         if (searchCriteria == "rank")
         {
-            if (universities[mid].rank == targetRank)
+            if (universities[i].rank == targetRank)
             {
                 return true; // Found the target rank
-            }
-            else if (universities[mid].rank < targetRank)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "name")
         {
             // Perform a lexicographic comparison for the target name
-            int comparisonResult = universities[mid].name.compare(targetName);
+            int comparisonResult = universities[i].name.compare(targetName);
             if (comparisonResult == 0)
             {
                 return true; // Found the target name
-            }
-            else if (comparisonResult < 0)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "locationCode")
         {
             // Perform a lexicographic comparison for the target name
-            int comparisonResult = universities[mid].locationCode.compare(targetName);
+            int comparisonResult = universities[i].locationCode.compare(targetName);
             if (comparisonResult == 0)
             {
                 return true; // Found the target name
-            }
-            else if (comparisonResult < 0)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "location")
         {
             // Perform a lexicographic comparison for the target name
-            int comparisonResult = universities[mid].location.compare(targetName);
+            int comparisonResult = universities[i].location.compare(targetName);
             if (comparisonResult == 0)
             {
                 return true; // Found the target name
             }
-            else if (comparisonResult < 0)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
         }
         else if (searchCriteria == "scoreScaled")
         {
-            if (universities[mid].scoreScaled == targetScore)
+            if (universities[i].scoreScaled == targetScore)
             {
                 return true; // Found the target score
-            }
-            else if (universities[mid].scoreScaled < targetScore)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "arScore")
         {
-            if (universities[mid].arScore == targetScore)
+            if (universities[i].arScore == targetScore)
             {
                 return true; // Found the target score
-            }
-            else if (universities[mid].arScore < targetScore)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "erScore")
         {
-            if (universities[mid].erScore == targetScore)
+            if (universities[i].erScore == targetScore)
             {
                 return true; // Found the target score
-            }
-            else if (universities[mid].erScore < targetScore)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "fsrScore")
         {
-            if (universities[mid].fsrScore == targetScore)
+            if (universities[i].fsrScore == targetScore)
             {
                 return true; // Found the target score
-            }
-            else if (universities[mid].fsrScore < targetScore)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "cpfScore")
         {
-            if (universities[mid].cpfScore == targetScore)
+            if (universities[i].cpfScore == targetScore)
             {
                 return true; // Found the target score
-            }
-            else if (universities[mid].cpfScore < targetScore)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "ifrScore")
         {
-            if (universities[mid].ifrScore == targetScore)
+            if (universities[i].ifrScore == targetScore)
             {
                 return true; // Found the target score
-            }
-            else if (universities[mid].ifrScore < targetScore)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "isrScore")
         {
-            if (universities[mid].isrScore == targetScore)
+            if (universities[i].isrScore == targetScore)
             {
                 return true; // Found the target score
-            }
-            else if (universities[mid].isrScore < targetScore)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
             }
         }
         else if (searchCriteria == "irnScore")
         {
-            if (universities[mid].irnScore == targetScore)
+            if (universities[i].irnScore == targetScore)
             {
                 return true; // Found the target score
             }
-            else if (universities[mid].irnScore < targetScore)
+
+            else if (searchCriteria == "gerScore")
             {
-                low = mid + 1; // Search the upper half
+                if (universities[i].gerScore == targetScore)
+                {
+                    return true; // Found the target score
+                }
+            }
+            else if (searchCriteria == "arRank")
+            {
+                if (universities[i].arRank == targetRank)
+                {
+                    return true; // Found the target rank
+                }
+            }
+            else if (searchCriteria == "erRank")
+            {
+                if (universities[i].erRank == targetRank)
+                {
+                    return true; // Found the target rank
+                }
+            }
+            else if (searchCriteria == "fsrRank")
+            {
+                if (universities[i].fsrRank == targetRank)
+                {
+                    return true; // Found the target rank
+                }
+            }
+            else if (searchCriteria == "cpfRank")
+            {
+                if (universities[i].cpfRank == targetRank)
+                {
+                    return true; // Found the target rank
+                }
+            }
+            else if (searchCriteria == "ifrRank")
+            {
+                if (universities[i].ifrRank == targetRank)
+                {
+                    return true; // Found the target rank
+                }
+            }
+            else if (searchCriteria == "isrRank")
+            {
+                if (universities[i].isrRank == targetRank)
+                {
+                    return true; // Found the target rank
+                }
+            }
+            else if (searchCriteria == "irnRank")
+            {
+                if (universities[i].irnRank == targetRank)
+                {
+                    return true; // Found the target rank
+                }
+            }
+            else if (searchCriteria == "gerRank")
+            {
+                if (universities[i].gerRank == targetRank)
+                {
+                    return true; // Found the target rank
+                }
             }
             else
             {
-                high = mid - 1; // Search the lower half
+                // Invalid search criteria
+                return false;
             }
-        }
-        else if (searchCriteria == "gerScore")
-        {
-            if (universities[mid].gerScore == targetScore)
-            {
-                return true; // Found the target score
-            }
-            else if (universities[mid].gerScore < targetScore)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
-        }
-        else if (searchCriteria == "arRank")
-        {
-            if (universities[mid].arRank == targetRank)
-            {
-                return true; // Found the target rank
-            }
-            else if (universities[mid].arRank < targetRank)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
-        }
-        else if (searchCriteria == "erRank")
-        {
-            if (universities[mid].erRank == targetRank)
-            {
-                return true; // Found the target rank
-            }
-            else if (universities[mid].erRank < targetRank)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
-        }
-        else if (searchCriteria == "fsrRank")
-        {
-            if (universities[mid].fsrRank == targetRank)
-            {
-                return true; // Found the target rank
-            }
-            else if (universities[mid].fsrRank < targetRank)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
-        }
-        else if (searchCriteria == "cpfRank")
-        {
-            if (universities[mid].cpfRank == targetRank)
-            {
-                return true; // Found the target rank
-            }
-            else if (universities[mid].cpfRank < targetRank)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
-        }
-        else if (searchCriteria == "ifrRank")
-        {
-            if (universities[mid].ifrRank == targetRank)
-            {
-                return true; // Found the target rank
-            }
-            else if (universities[mid].ifrRank < targetRank)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
-        }
-        else if (searchCriteria == "isrRank")
-        {
-            if (universities[mid].isrRank == targetRank)
-            {
-                return true; // Found the target rank
-            }
-            else if (universities[mid].isrRank < targetRank)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
-        }
-        else if (searchCriteria == "irnRank")
-        {
-            if (universities[mid].irnRank == targetRank)
-            {
-                return true; // Found the target rank
-            }
-            else if (universities[mid].irnRank < targetRank)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
-        }
-        else if (searchCriteria == "gerRank")
-        {
-            if (universities[mid].gerRank == targetRank)
-            {
-                return true; // Found the target rank
-            }
-            else if (universities[mid].gerRank < targetRank)
-            {
-                low = mid + 1; // Search the upper half
-            }
-            else
-            {
-                high = mid - 1; // Search the lower half
-            }
-        }
-        else
-        {
-            // Invalid search criteria
-            return false;
         }
     }
-
     return false; // Target not found
 }
 
-void displayTarget()
+void displayLinearTarget()
 {
     University universities[ARRAY_SIZE];
     int numUniversities = 0;
@@ -666,52 +489,52 @@ void displayTarget()
     readUni("uni.csv", universities, numUniversities);
     int targetRank;
     double targetScore;
-    std::string targetName;
+    string targetName;
 
     bool isFound = false;
-    std::string searchCriteria;
+    string searchCriteria;
 
     int searchChoice;
 
     while (true)
     {
-        std::cout << "Binary Search Menu" << std::endl;
-        std::cout << "1. University Rank." << std::endl;
-        std::cout << "2. University Name." << std::endl;
-        std::cout << "3. University Scaled Score." << std::endl;
-        std::cout << "4. Location Code." << std::endl;
-        std::cout << "5. Location." << std::endl;
-        std::cout << "6. AR Score." << std::endl;
-        std::cout << "7. ER Score." << std::endl;
-        std::cout << "8. FSR Score." << std::endl;
-        std::cout << "9. CPF Score." << std::endl;
-        std::cout << "10. IFR Score." << std::endl;
-        std::cout << "11. ISR Score." << std::endl;
-        std::cout << "12. IRN Score." << std::endl;
-        std::cout << "13. GER Score." << std::endl;
-        std::cout << "14. AR Rank." << std::endl;
-        std::cout << "15. ER Rank." << std::endl;
-        std::cout << "16. FSR Rank." << std::endl;
-        std::cout << "17. CPF Rank." << std::endl;
-        std::cout << "18. IFR Rank." << std::endl;
-        std::cout << "19. ISR Rank." << std::endl;
-        std::cout << "20. IRN Rank." << std::endl;
-        std::cout << "21. GER Rank." << std::endl;
-        std::cout << "22. Exit Program." << std::endl;
-        std::cout << "Enter your choice: ";
-        std::cin >> searchChoice;
+        cout << "Linear Search Menu" << endl;
+        cout << "1. University Rank." << endl;
+        cout << "2. University Name." << endl;
+        cout << "3. University Scaled Score." << endl;
+        cout << "4. Location Code." << endl;
+        cout << "5. Location." << endl;
+        cout << "6. AR Score." << endl;
+        cout << "7. ER Score." << endl;
+        cout << "8. FSR Score." << endl;
+        cout << "9. CPF Score." << endl;
+        cout << "10. IFR Score." << endl;
+        cout << "11. ISR Score." << endl;
+        cout << "12. IRN Score." << endl;
+        cout << "13. GER Score." << endl;
+        cout << "14. AR Rank." << endl;
+        cout << "15. ER Rank." << endl;
+        cout << "16. FSR Rank." << endl;
+        cout << "17. CPF Rank." << endl;
+        cout << "18. IFR Rank." << endl;
+        cout << "19. ISR Rank." << endl;
+        cout << "20. IRN Rank." << endl;
+        cout << "21. GER Rank." << endl;
+        cout << "22. Exit Program." << endl;
+        cout << "Enter your choice: ";
+        cin >> searchChoice;
 
         switch (searchChoice)
         {
         case 1:
 
-            std::cout << "Enter the rank: ";
-            std::cin >> targetRank;
-            isFound = binarySearchUni(universities, numUniversities, targetRank, "", targetScore, "rank");
+            cout << "Enter the rank: ";
+            cin >> targetRank;
+            isFound = linearSearchUni(universities, numUniversities, targetRank, "", targetScore, "rank");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -719,48 +542,48 @@ void displayTarget()
                     if (universities[i].rank == targetRank)
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 2:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "name");
-            std::cout << "Enter the university name: ";
-            std::cin.ignore();
-            std::getline(std::cin, targetName);
-            isFound = binarySearchUni(universities, numUniversities, -1, targetName, targetScore, "name");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "name");
+            cout << "Enter the university name: ";
+            cin.ignore();
+            getline(cin, targetName);
+            isFound = linearSearchUni(universities, numUniversities, -1, targetName, targetScore, "name");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -768,47 +591,47 @@ void displayTarget()
                     if ((universities[i].name == targetName))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 3:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "scoreScaled");
-            std::cout << "Enter the score scaled: ";
-            std::cin >> targetScore;
-            isFound = binarySearchUni(universities, numUniversities, -1, targetName, targetScore, "scoreScaled");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "scoreScaled");
+            cout << "Enter the score scaled: ";
+            cin >> targetScore;
+            isFound = linearSearchUni(universities, numUniversities, -1, targetName, targetScore, "scoreScaled");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -817,48 +640,48 @@ void displayTarget()
                         (universities[i].scoreScaled == targetScore))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 4:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "locationCode");
-            std::cout << "Enter the location code: ";
-            std::cin.ignore();
-            std::getline(std::cin, targetName);
-            isFound = binarySearchUni(universities, numUniversities, -1, targetName, -1.0, "locationCode");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "locationCode");
+            cout << "Enter the location code: ";
+            cin.ignore();
+            getline(cin, targetName);
+            isFound = linearSearchUni(universities, numUniversities, -1, targetName, -1.0, "locationCode");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -867,48 +690,48 @@ void displayTarget()
                         (universities[i].locationCode == targetName))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 5:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "location");
-            std::cout << "Enter the location: ";
-            std::cin.ignore();
-            std::getline(std::cin, targetName);
-            isFound = binarySearchUni(universities, numUniversities, -1, targetName, -1.0, "location");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "location");
+            cout << "Enter the location: ";
+            cin.ignore();
+            getline(cin, targetName);
+            isFound = linearSearchUni(universities, numUniversities, -1, targetName, -1.0, "location");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -917,47 +740,47 @@ void displayTarget()
                         (universities[i].location == targetName))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 6:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "arScore");
-            std::cout << "Enter the AR Score: ";
-            std::cin >> targetScore;
-            isFound = binarySearchUni(universities, numUniversities, -1, "", targetScore, "arScore");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "arScore");
+            cout << "Enter the AR Score: ";
+            cin >> targetScore;
+            isFound = linearSearchUni(universities, numUniversities, -1, "", targetScore, "arScore");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -966,47 +789,47 @@ void displayTarget()
                         (universities[i].arScore == targetScore))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 7:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "erScore");
-            std::cout << "Enter the ER Score: ";
-            std::cin >> targetScore;
-            isFound = binarySearchUni(universities, numUniversities, -1, "", targetScore, "erScore");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "erScore");
+            cout << "Enter the ER Score: ";
+            cin >> targetScore;
+            isFound = linearSearchUni(universities, numUniversities, -1, "", targetScore, "erScore");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1015,47 +838,47 @@ void displayTarget()
                         (universities[i].erScore == targetScore))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 8:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "fsrScore");
-            std::cout << "Enter the FSR Score: ";
-            std::cin >> targetScore;
-            isFound = binarySearchUni(universities, numUniversities, -1, "", targetScore, "fsrScore");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "fsrScore");
+            cout << "Enter the FSR Score: ";
+            cin >> targetScore;
+            isFound = linearSearchUni(universities, numUniversities, -1, "", targetScore, "fsrScore");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1064,47 +887,47 @@ void displayTarget()
                         (universities[i].fsrScore == targetScore))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 9:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "cpfScore");
-            std::cout << "Enter the CPF Score: ";
-            std::cin >> targetScore;
-            isFound = binarySearchUni(universities, numUniversities, -1, "", targetScore, "cpfScore");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "cpfScore");
+            cout << "Enter the CPF Score: ";
+            cin >> targetScore;
+            isFound = linearSearchUni(universities, numUniversities, -1, "", targetScore, "cpfScore");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1113,47 +936,47 @@ void displayTarget()
                         (universities[i].cpfScore == targetScore))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 10:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "ifrScore");
-            std::cout << "Enter the IFR Score: ";
-            std::cin >> targetScore;
-            isFound = binarySearchUni(universities, numUniversities, -1, "", targetScore, "ifrScore");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "ifrScore");
+            cout << "Enter the IFR Score: ";
+            cin >> targetScore;
+            isFound = linearSearchUni(universities, numUniversities, -1, "", targetScore, "ifrScore");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1162,47 +985,47 @@ void displayTarget()
                         (universities[i].ifrScore == targetScore))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 11:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "isrScore");
-            std::cout << "Enter the ISR Score: ";
-            std::cin >> targetScore;
-            isFound = binarySearchUni(universities, numUniversities, -1, "", targetScore, "isrScore");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "isrScore");
+            cout << "Enter the ISR Score: ";
+            cin >> targetScore;
+            isFound = linearSearchUni(universities, numUniversities, -1, "", targetScore, "isrScore");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1211,47 +1034,47 @@ void displayTarget()
                         (universities[i].isrScore == targetScore))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 12:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "irnScore");
-            std::cout << "Enter the IRN Score: ";
-            std::cin >> targetScore;
-            isFound = binarySearchUni(universities, numUniversities, -1, "", targetScore, "irnScore");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "irnScore");
+            cout << "Enter the IRN Score: ";
+            cin >> targetScore;
+            isFound = linearSearchUni(universities, numUniversities, -1, "", targetScore, "irnScore");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1260,47 +1083,47 @@ void displayTarget()
                         (universities[i].irnScore == targetScore))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 13:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "gerScore");
-            std::cout << "Enter the GER Score: ";
-            std::cin >> targetScore;
-            isFound = binarySearchUni(universities, numUniversities, -1, "", targetScore, "gerScore");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "gerScore");
+            cout << "Enter the GER Score: ";
+            cin >> targetScore;
+            isFound = linearSearchUni(universities, numUniversities, -1, "", targetScore, "gerScore");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1309,47 +1132,47 @@ void displayTarget()
                         (universities[i].gerScore == targetScore))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 14:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "arRank");
-            std::cout << "Enter the AR Rank: ";
-            std::cin >> targetRank;
-            isFound = binarySearchUni(universities, numUniversities, targetRank, "", -1.0, "arRank");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "arRank");
+            cout << "Enter the AR Rank: ";
+            cin >> targetRank;
+            isFound = linearSearchUni(universities, numUniversities, targetRank, "", -1.0, "arRank");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1357,47 +1180,47 @@ void displayTarget()
                     if ((universities[i].arRank == targetRank))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 15:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "erRank");
-            std::cout << "Enter the ER Rank: ";
-            std::cin >> targetRank;
-            isFound = binarySearchUni(universities, numUniversities, targetRank, "", -1.0, "erRank");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "erRank");
+            cout << "Enter the ER Rank: ";
+            cin >> targetRank;
+            isFound = linearSearchUni(universities, numUniversities, targetRank, "", -1.0, "erRank");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1406,47 +1229,47 @@ void displayTarget()
                         (universities[i].erRank == targetRank))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 16:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "fsrRank");
-            std::cout << "Enter the FSR Rank: ";
-            std::cin >> targetRank;
-            isFound = binarySearchUni(universities, numUniversities, targetRank, "", -1.0, "fsrRank");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "fsrRank");
+            cout << "Enter the FSR Rank: ";
+            cin >> targetRank;
+            isFound = linearSearchUni(universities, numUniversities, targetRank, "", -1.0, "fsrRank");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1455,47 +1278,47 @@ void displayTarget()
                         (universities[i].fsrRank == targetRank))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 17:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "cpfRank");
-            std::cout << "Enter the CPF Rank: ";
-            std::cin >> targetRank;
-            isFound = binarySearchUni(universities, numUniversities, targetRank, "", -1.0, "cpfRank");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "cpfRank");
+            cout << "Enter the CPF Rank: ";
+            cin >> targetRank;
+            isFound = linearSearchUni(universities, numUniversities, targetRank, "", -1.0, "cpfRank");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1504,47 +1327,47 @@ void displayTarget()
                         (universities[i].cpfRank == targetRank))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 18:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "ifrRank");
-            std::cout << "Enter the IFR Rank: ";
-            std::cin >> targetRank;
-            isFound = binarySearchUni(universities, numUniversities, targetRank, "", -1.0, "ifrRank");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "ifrRank");
+            cout << "Enter the IFR Rank: ";
+            cin >> targetRank;
+            isFound = linearSearchUni(universities, numUniversities, targetRank, "", -1.0, "ifrRank");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1553,47 +1376,47 @@ void displayTarget()
                         (universities[i].ifrRank == targetRank))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 19:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "isrRank");
-            std::cout << "Enter the ISR Rank: ";
-            std::cin >> targetRank;
-            isFound = binarySearchUni(universities, numUniversities, targetRank, "", -1.0, "isrRank");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "isrRank");
+            cout << "Enter the ISR Rank: ";
+            cin >> targetRank;
+            isFound = linearSearchUni(universities, numUniversities, targetRank, "", -1.0, "isrRank");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1602,47 +1425,47 @@ void displayTarget()
                         (universities[i].isrRank == targetRank))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 20:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "irnRank");
-            std::cout << "Enter the IRN Rank: ";
-            std::cin >> targetRank;
-            isFound = binarySearchUni(universities, numUniversities, targetRank, "", -1.0, "irnRank");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "irnRank");
+            cout << "Enter the IRN Rank: ";
+            cin >> targetRank;
+            isFound = linearSearchUni(universities, numUniversities, targetRank, "", -1.0, "irnRank");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1651,47 +1474,47 @@ void displayTarget()
                         (universities[i].irnRank == targetRank))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
         case 21:
-            quickSort(universities, 0, ARRAY_SIZE - 1, "gerRank");
-            std::cout << "Enter the GER Rank: ";
-            std::cin >> targetRank;
-            isFound = binarySearchUni(universities, numUniversities, targetRank, "", -1.0, "gerRank");
+            // quickSort(universities, 0, ARRAY_SIZE - 1, "gerRank");
+            cout << "Enter the GER Rank: ";
+            cin >> targetRank;
+            isFound = linearSearchUni(universities, numUniversities, targetRank, "", -1.0, "gerRank");
 
             if (isFound)
             {
-                std::cout << "University found!" << std::endl;
+                cout << "University found!" << endl;
 
                 // Find and display the specific details of the target
                 for (int i = 0; i < numUniversities; i++)
@@ -1700,46 +1523,46 @@ void displayTarget()
                         (universities[i].gerRank == targetRank))
                     {
                         University &uni = universities[i];
-                        std::cout << "University #" << i + 1 << std::endl;
-                        std::cout << "Rank: " << (uni.rank == -1 ? "n/a" : std::to_string(uni.rank)) << std::endl;
-                        std::cout << "Name: " << uni.name << std::endl;
-                        std::cout << "Location Code: " << uni.locationCode << std::endl;
-                        std::cout << "Location: " << uni.location << std::endl;
-                        std::cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : std::to_string(uni.arScore)) << std::endl;
-                        std::cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : std::to_string(uni.arRank)))) << std::endl;
-                        std::cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : std::to_string(uni.erScore)) << std::endl;
-                        std::cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : std::to_string(uni.erRank)))) << std::endl;
-                        std::cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : std::to_string(uni.fsrScore)) << std::endl;
-                        std::cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : std::to_string(uni.fsrRank)))) << std::endl;
-                        std::cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : std::to_string(uni.cpfScore)) << std::endl;
-                        std::cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : std::to_string(uni.cpfRank)))) << std::endl;
-                        std::cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : std::to_string(uni.ifrScore)) << std::endl;
-                        std::cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : std::to_string(uni.ifrRank)))) << std::endl;
-                        std::cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : std::to_string(uni.isrScore)) << std::endl;
-                        std::cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : std::to_string(uni.isrRank)))) << std::endl;
-                        std::cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : std::to_string(uni.irnScore)) << std::endl;
-                        std::cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : std::to_string(uni.irnRank)))) << std::endl;
-                        std::cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : std::to_string(uni.gerScore)) << std::endl;
-                        std::cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : std::to_string(uni.gerRank)))) << std::endl;
-                        std::cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : std::to_string(uni.scoreScaled)) << std::endl;
-                        std::cout << std::endl;
+                        cout << "University #" << i + 1 << endl;
+                        cout << "Rank: " << (uni.rank == -1 ? "n/a" : to_string(uni.rank)) << endl;
+                        cout << "Name: " << uni.name << endl;
+                        cout << "Location Code: " << uni.locationCode << endl;
+                        cout << "Location: " << uni.location << endl;
+                        cout << "AR Score: " << (uni.arScore == -1.0 ? "n/a" : to_string(uni.arScore)) << endl;
+                        cout << "AR Rank: " << (uni.arRank == -1 ? "n/a" : (uni.arRank == 501 ? "501+" : (uni.arRank == 601 ? "601+" : to_string(uni.arRank)))) << endl;
+                        cout << "ER Score: " << (uni.erScore == -1.0 ? "n/a" : to_string(uni.erScore)) << endl;
+                        cout << "ER Rank: " << (uni.erRank == -1 ? "n/a" : (uni.erRank == 501 ? "501+" : (uni.erRank == 601 ? "601+" : to_string(uni.erRank)))) << endl;
+                        cout << "FSR Score: " << (uni.fsrScore == -1.0 ? "n/a" : to_string(uni.fsrScore)) << endl;
+                        cout << "FSR Rank: " << (uni.fsrRank == -1 ? "n/a" : (uni.fsrRank == 501 ? "501+" : (uni.fsrRank == 601 ? "601+" : to_string(uni.fsrRank)))) << endl;
+                        cout << "CPF Score: " << (uni.cpfScore == -1.0 ? "n/a" : to_string(uni.cpfScore)) << endl;
+                        cout << "CPF Rank: " << (uni.cpfRank == -1 ? "n/a" : (uni.cpfRank == 501 ? "501+" : (uni.cpfRank == 601 ? "601+" : to_string(uni.cpfRank)))) << endl;
+                        cout << "IFR Score: " << (uni.ifrScore == -1.0 ? "n/a" : to_string(uni.ifrScore)) << endl;
+                        cout << "IFR Rank: " << (uni.ifrRank == -1 ? "n/a" : (uni.ifrRank == 501 ? "501+" : (uni.ifrRank == 601 ? "601+" : to_string(uni.ifrRank)))) << endl;
+                        cout << "ISR Score: " << (uni.isrScore == -1.0 ? "n/a" : to_string(uni.isrScore)) << endl;
+                        cout << "ISR Rank: " << (uni.isrRank == -1 ? "n/a" : (uni.isrRank == 501 ? "501+" : (uni.isrRank == 601 ? "601+" : to_string(uni.isrRank)))) << endl;
+                        cout << "IRN Score: " << (uni.irnScore == -1.0 ? "n/a" : to_string(uni.irnScore)) << endl;
+                        cout << "IRN Rank: " << (uni.irnRank == -1 ? "n/a" : (uni.irnRank == 501 ? "501+" : (uni.irnRank == 601 ? "601+" : to_string(uni.irnRank)))) << endl;
+                        cout << "GER Score: " << (uni.gerScore == -1.0 ? "n/a" : to_string(uni.gerScore)) << endl;
+                        cout << "GER Rank: " << (uni.gerRank == -1 ? "n/a" : (uni.gerRank == 501 ? "501+" : (uni.gerRank == 601 ? "601+" : to_string(uni.gerRank)))) << endl;
+                        cout << "Score Scaled: " << (uni.scoreScaled == -1.0 ? "n/a" : to_string(uni.scoreScaled)) << endl;
+                        cout << endl;
                         break;
                     }
                 }
             }
             else
             {
-                std::cout << "University not found." << std::endl;
+                cout << "University not found." << endl;
             }
             break;
-        
+
         case 22:
-            exitProgram();
+            return;
 
         default:
-            std::cout << "Invalid search choice. Please try again." << std::endl;
+            cout << "Invalid search choice. Please try again." << endl;
         }
 
-        std::cout << std::endl;
+        cout << endl;
     }
 }

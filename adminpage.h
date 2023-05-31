@@ -11,56 +11,95 @@
 #include <chrono>
 #include <iomanip>
 
-class User {
-public:
-    std::string username;
-    std::string password;
-    std::string lastLogin;
+const int MAX_LOGIN_DATA = 100; // Maximum number of login data entries
 
-    User* next;
-
-    User(std::string username, std::string password, std::string lastLogin);
+struct LoginData
+{
+    string username;
+    string password;
+    string userType;
+    string lastLogin;
 };
 
-class UserList {
-private:
-    User* head;
-    int size;
+struct UserData
+{
+    string username;
+    string university;
+};
+
+class UserList
+{
 
 public:
     UserList();
 
-    void addUser(std::string username, std::string password, std::string lastLogin);
-    void displayUsers(const UserList& userList);
+    void addUser(string username, string password, string lastLogin);
+    void displayUsers(const UserList &userList);
     void deleteInactiveUsers();
-    User *getHead() const
+};
+
+int readLoginData(LoginData loginData[], const string &filename)
+{
+    ifstream file(filename);
+    if (!file)
     {
-        return head;
-    }
-};
-
-const int ARRAY_SIZE = 100;
-
-struct UserData {
-    std::string username;
-    std::string university;
-};
-
-int readCSV(const std::string& filename, UserData data[], int maxDataSize) {
-    std::ifstream file(filename);
-
-    if (!file) {
-        std::cout << "Failed to open the file: " << filename << std::endl;
+        cerr << "Failed to open the file: " << filename << endl;
         return 0;
     }
 
-    std::string line;
-    int dataSize = 0;
-    while (std::getline(file, line) && dataSize < maxDataSize) {
-        std::stringstream ss(line);
-        std::string username, university;
+    int numEntries = 0;
+    string line;
+    while (getline(file, line))
+    {
+        istringstream iss(line);
+        string username, password, userType, lastLogin;
 
-        if (std::getline(ss, username, ',') && std::getline(ss, university)) {
+        if (getline(iss, username, ',') &&
+            getline(iss, password, ',') &&
+            getline(iss, userType, ',') &&
+            getline(iss, lastLogin))
+        {
+            loginData[numEntries].username = username;
+            loginData[numEntries].password = password;
+            loginData[numEntries].userType = userType;
+            loginData[numEntries].lastLogin = lastLogin;
+            numEntries++;
+
+            if (numEntries >= MAX_LOGIN_DATA)
+            {
+                cerr << "Maximum number of login data entries reached. Some entries may have been skipped."
+                     << endl;
+                break;
+            }
+        }
+        else
+        {
+            cerr << "Invalid login data entry: " << line << endl;
+        }
+    }
+
+    return numEntries;
+}
+
+int readCSV(const string &filename, UserData data[], int maxDataSize)
+{
+    ifstream file(filename);
+
+    if (!file)
+    {
+        cout << "Failed to open the file: " << filename << endl;
+        return 0;
+    }
+
+    string line;
+    int dataSize = 0;
+    while (getline(file, line) && dataSize < maxDataSize)
+    {
+        stringstream ss(line);
+        string username, university;
+
+        if (getline(ss, username, ',') && getline(ss, university))
+        {
             data[dataSize].username = username;
             data[dataSize].university = university;
             dataSize++;
@@ -71,21 +110,23 @@ int readCSV(const std::string& filename, UserData data[], int maxDataSize) {
     return dataSize;
 }
 
-
 // Function to perform quicksort
-void quickSort(UserData arr[], int left, int right) {
+void quickSort(UserData arr[], int left, int right)
+{
     int i = left;
     int j = right;
-    std::string pivot = arr[(left + right) / 2].university;
+    string pivot = arr[(left + right) / 2].university;
 
-    while (i <= j) {
+    while (i <= j)
+    {
         while (arr[i].university < pivot)
             i++;
         while (arr[j].university > pivot)
             j--;
 
-        if (i <= j) {
-            std::swap(arr[i], arr[j]);
+        if (i <= j)
+        {
+            swap(arr[i], arr[j]);
             i++;
             j--;
         }
@@ -98,170 +139,152 @@ void quickSort(UserData arr[], int left, int right) {
 }
 
 // Function to count the frequency of each university
-std::unordered_map<std::string, int> countFrequency(UserData arr[], int size) {
-    std::unordered_map<std::string, int> frequencyMap;
-    for (int i = 0; i < size; i++) {
+unordered_map<string, int> countFrequency(UserData arr[], int size)
+{
+    unordered_map<string, int> frequencyMap;
+    for (int i = 0; i < size; i++)
+    {
         frequencyMap[arr[i].university]++;
     }
     return frequencyMap;
 }
 
 // Function to print the top 10 repeated universities
-void printTop10Repeated(UserData arr[], int size) {
-    std::unordered_map<std::string, int> frequencyMap = countFrequency(arr, size);
-
-    std::pair<std::string, int> sortedFreq[ARRAY_SIZE];
+void printTop10Repeated(UserData arr[], int size)
+{
+    unordered_map<string, int> frequencyMap = countFrequency(arr, size);
+    const int ARRAY_SIZE = 100;
+    pair<string, int> sortedFreq[ARRAY_SIZE];
     int index = 0;
-    for (const auto& pair : frequencyMap) {
+    for (const auto &pair : frequencyMap)
+    {
         sortedFreq[index++] = pair;
     }
 
-    std::sort(sortedFreq, sortedFreq + index, [](const auto& a, const auto& b) {
-        return a.second > b.second;
-    });
+    sort(sortedFreq, sortedFreq + index, [](const auto &a, const auto &b)
+         { return a.second > b.second; });
 
-    std::cout << "Top 10 Repeated Universities:\n";
+    cout << "Top 10 Repeated Universities:\n";
     int count = 0;
-    for (int i = 0; i < index; i++) {
-        std::cout << "University: " << sortedFreq[i].first << std::endl;
-        std::cout << "Saved: " << sortedFreq[i].second << std::endl;
-        std::cout << std::endl;
+    for (int i = 0; i < index; i++)
+    {
+        cout << "University: " << sortedFreq[i].first << endl;
+        cout << "Saved: " << sortedFreq[i].second << endl;
+        cout << endl;
         count++;
-        if (count == 10) {
-            break;
-        }
-    }
-}
-
-void displayAdminMenu(UserList& userList, UserData users[], int numUsers) {
-    int choice;
-
-        std::cout << "Admin Home Page\n";
-        std::cout << "1. Display Users\n";
-        std::cout << "2. Delete Inactive Users\n";
-        std::cout << "3. Summarize Favourite\n";
-        std::cout << "4. Exit\n";
-        std::cout << "Enter your choice: ";
-        std::cin >> choice;
-
-        switch (choice)
+        if (count == 10)
         {
-        case 1:
-            userList.displayUsers(userList);
             break;
-        case 2:
-            userList.deleteInactiveUsers();
-            break;
-        case 3:
-            printTop10Repeated(users, numUsers);
-            break;
-        case 4:
-            std::cout << "Exiting the program...\n";
-            exit(0);
-        default:
-            std::cout << "Invalid choice. Please try again.\n";
         }
-
-        std::cout << "Press any key to go back to the main menu...";
-        std::cin.ignore();
-        std::cin.get();
-
-        displayAdminMenu(userList, users, numUsers); // Recursive call to display the menu again
+    }
 }
 
-User::User(std::string username, std::string password, std::string lastLogin)
-    : username(username), password(password), lastLogin(lastLogin), next(nullptr) {}
+void deleteInactiveUsers(LoginData loginData[], int &numEntries)
+{
+    const int INACTIVE_THRESHOLD = 90; // Number of days for considering a user as inactive
 
-UserList::UserList() : head(nullptr), size(0) {}
-
-void UserList::addUser(std::string username, std::string password, std::string lastLogin) {
-    User* newUser = new User(username, password, lastLogin);
-        
-    if (head == nullptr) {
-        head = newUser;
-    }
-    else {
-        User* current = head;
-        while (current->next != nullptr) {
-            current = current->next;
-        }
-        current->next = newUser;
-    }
-
-    size++;
-}
-
-// Function to calculate the time difference in years between two dates
-int calculateYearDifference(const std::string& date) {
-    std::tm time = {};
-    std::istringstream ss(date);
-    ss >> time.tm_year;
-    ss.ignore();
-    ss >> time.tm_mon;
-    ss.ignore();
-    ss >> time.tm_mday;
-
-    std::time_t now = std::time(nullptr);
-    std::tm *currentTime = std::localtime(&now);
-
-    int yearDifference = currentTime->tm_year + 1900 - time.tm_year;
-
-    if (currentTime->tm_mon < time.tm_mon || (currentTime->tm_mon == time.tm_mon && currentTime->tm_mday < time.tm_mday))
+    auto currentDate = std::chrono::system_clock::now();
+    for (int i = 0; i < numEntries; i++)
     {
-        yearDifference--;
-    }
+        std::istringstream iss(loginData[i].lastLogin);
+        std::tm lastLoginDate = {};
+        iss >> std::get_time(&lastLoginDate, "%Y-%m-%d");
 
-    return yearDifference;
-}
+        std::chrono::system_clock::time_point lastLoginTime = std::chrono::system_clock::from_time_t(std::mktime(&lastLoginDate));
+        std::chrono::duration<double> diff = currentDate - lastLoginTime;
+        int daysSinceLastLogin = std::chrono::duration_cast<std::chrono::hours>(diff).count() / 24;
 
-void UserList::deleteInactiveUsers() {
-    std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-
-    User* current = head;
-    User* prev = nullptr;
-
-    while (current != nullptr) {
-        int yearDifference = calculateYearDifference(current->lastLogin);
-
-        if (yearDifference >= 1) {
-            std::cout << "Deleting user: " << current->username << std::endl;
-
-            if (prev == nullptr) {
-                head = current->next;
-                delete current;
-                current = head;
+        if (daysSinceLastLogin > INACTIVE_THRESHOLD)
+        {
+            // User is inactive, delete the user by shifting remaining entries
+            for (int j = i; j < numEntries - 1; j++)
+            {
+                loginData[j] = loginData[j + 1];
             }
-            else {
-                prev->next = current->next;
-                delete current;
-                current = prev->next;
-            }
-
-            size--;
-        }
-        else {
-            prev = current;
-            current = current->next;
+            numEntries--;
+            i--; // Decrement i to reprocess the current index in the shifted array
         }
     }
 }
 
-void UserList::displayUsers(const UserList& userList) {
+void printMenu()
+{
+    cout << "Menu:" << endl;
+    cout << "1. Display all users" << endl;
+    cout << "2. Delete inactive users" << endl;
+    cout << "3. Summarize favorites" << endl;
+    cout << "4. Exit" << endl;
+    cout << "Enter your choice: ";
+}
 
-    std::cout << std::left << std::setw(15) << "Username" << std::setw(10) << "Password" << std::setw(10) << "Last Login" << std::endl;
-    std::cout << std::setfill('-') << std::setw(45) << "-" << std::setfill(' ') << std::endl;
+void displayAllUsers(const LoginData loginData[], int numEntries)
+{
 
-    const User *current = userList.getHead();
-
-    while (current != nullptr)
+    for (int i = 0; i < numEntries; i++)
     {
-        std::cout << std::left << std::setw(15) << current->username << std::setw(10) << current->password << std::setw(10) << current->lastLogin << std::endl;
-        current = current->next;
-
+        cout << "User: " << loginData[i].username << endl;
+        cout << "Password: " << loginData[i].password << endl;
+        cout << "Last Login: " << loginData[i].lastLogin << endl;
+        cout << endl;
     }
 }
 
+void updateCSV(const std::string &filename, LoginData loginData[], int numEntries)
+{
+    std::ofstream outputFile(filename);
+    if (!outputFile)
+    {
+        std::cout << "Failed to open the CSV file." << std::endl;
+        return;
+    }
 
+    //outputFile << "username,lastLogin" << std::endl;
 
+    for (int i = 0; i < numEntries; i++)
+    {
+        outputFile << loginData[i].username << "," << loginData[i].password << "," << loginData[i].userType << "," << loginData[i].lastLogin << std::endl;
+    }
+
+    outputFile.close();
+}
+
+void callDisplayAllUsers()
+{
+    const string filename = "login_data.csv";
+    LoginData loginData[MAX_LOGIN_DATA];
+
+    int numEntries = readLoginData(loginData, filename);
+    cout << "Displaying all users:" << endl;
+    displayAllUsers(loginData, numEntries);
+}
+
+void callDeleteInactiveUsers()
+{
+    const string filename = "login_data.csv";
+    LoginData loginData[MAX_LOGIN_DATA];
+
+    int numEntries = readLoginData(loginData, filename);
+    cout << "Deleting inactive users..." << endl;
+    deleteInactiveUsers(loginData, numEntries);
+    updateCSV(filename, loginData, numEntries);
+    cout << "Inactive users deleted." << endl;
+}
+
+void callSummarize()
+{
+    cout << "Summarizing favorites:" << endl;
+    {
+        const string filename = "favourite.csv";
+        const int MAX_DATA_SIZE = 100;
+        UserData userData[MAX_DATA_SIZE];
+        int dataSize = readCSV(filename, userData, MAX_DATA_SIZE);
+
+        // Sort the data by university
+        quickSort(userData, 0, dataSize - 1);
+
+        // Print the top 10 repeated universities
+        printTop10Repeated(userData, dataSize);
+    }
+}
 
 #endif
